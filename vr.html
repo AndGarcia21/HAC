@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Vista 360</title>
+
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 15px;
+    border: none;
+
+    background: #00ff88;
+    font-size: 28px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+#touchOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+</style>
+</head>
+
+<body>
+
+<button class="back-btn" onclick="window.location.href='index.html'">
+←
+</button>
+
+<div id="touchOverlay"></div>
+
+<a-scene>
+
+    <a-assets>
+        <img id="sky" src="imagenes/foto360.png">
+    </a-assets>
+
+    <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+
+    <a-entity 
+        id="camara"
+        camera 
+        look-controls="magicWindowTrackingEnabled: false">
+    </a-entity>
+
+</a-scene>
+
+<script>
+function activarGiro() {
+    const cam = document.querySelector('#camara');
+
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+
+        DeviceOrientationEvent.requestPermission()
+            .then(response => {
+                if (response === 'granted') {
+                    cam.setAttribute('look-controls', 'magicWindowTrackingEnabled: true');
+                }
+            })
+            .catch(console.error);
+
+    } else {
+        cam.setAttribute('look-controls', 'magicWindowTrackingEnabled: true');
+    }
+
+    document.getElementById('touchOverlay').style.display = 'none';
+}
+
+window.addEventListener('load', () => {
+    if (!(typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function')) {
+        activarGiro();
+    }
+});
+
+document.getElementById('touchOverlay').addEventListener('click', activarGiro);
+</script>
+
+</body>
+</html>
