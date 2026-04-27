@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Vista 360°</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 15px;
+    border: none;
+
+    background: #00ff88;
+    font-size: 28px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.viewer {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<button class="back-btn" onclick="window.location.href='index.html'">
+←
+</button>
+
+<iframe 
+    class="viewer"
+    src="https://momento360.com/e/u/5aa4fab75edf44fea4c2635e62f45e7e?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=100&size=medium&display-plan=true"
+    allow="gyroscope; accelerometer; fullscreen"
+    allowfullscreen>
+</iframe>
+
+</body>
+</html>
